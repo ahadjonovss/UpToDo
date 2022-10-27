@@ -7,4 +7,9 @@ class Consts {
 
   //png
   static const png_logo = "assets/images/png_images/app_logo.png";
+
+  //icons
+
+  static const png_google = "assets/icons/google.png";
+  static const png_apple = "assets/icons/apple.png";
 }

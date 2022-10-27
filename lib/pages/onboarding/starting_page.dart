@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:up_todo/routes/routes.dart';
 import 'package:up_todo/utils/colors.dart';
 
 class StartPage extends StatefulWidget {
@@ -40,14 +41,19 @@ class _StartPageState extends State<StartPage> {
                 color: Colors.white.withOpacity(0.87),fontSize: 16.sp,
               ),textAlign: TextAlign.center,),
               SizedBox(height: 350.h,),
-              Container(
-                height: 48.h,
-                width: 328.w,
-                decoration:  BoxDecoration(
-                  color: MyColors.purple,
-                  borderRadius: BorderRadius.circular(4).r,
+              InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, RouteName.login);
+                },
+                child: Container(
+                  height: 48.h,
+                  width: 328.w,
+                  decoration:  BoxDecoration(
+                    color: MyColors.purple,
+                    borderRadius: BorderRadius.circular(4).r,
+                  ),
+                  child: Center(child: Text(textAlign: TextAlign.center,"Login",style: TextStyle(fontSize: 20.sp),)),
                 ),
-                child: Center(child: Text(textAlign: TextAlign.center,"Login",style: TextStyle(fontSize: 20.sp),)),
               ),
               SizedBox(height: 28.h,),
               Container(
