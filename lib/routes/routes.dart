@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:up_todo/pages/Auth/starting_page.dart';
+import 'package:up_todo/pages/onboarding/starting_page.dart';
 import 'package:up_todo/pages/onboarding/onboarding.dart';
 import 'package:up_todo/pages/splash_page.dart';
 
