@@ -56,14 +56,19 @@ class _StartPageState extends State<StartPage> {
                 ),
               ),
               SizedBox(height: 28.h,),
-              Container(
-                height: 48.h,
-                width: 328.w,
-                decoration:  BoxDecoration(
-                  border: Border.all(color: MyColors.purple),
-                  borderRadius: BorderRadius.circular(4).r,
+              InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, RouteName.register);
+                },
+                child: Container(
+                  height: 48.h,
+                  width: 328.w,
+                  decoration:  BoxDecoration(
+                    border: Border.all(color: MyColors.purple),
+                    borderRadius: BorderRadius.circular(4).r,
+                  ),
+                  child: Center(child: Text(textAlign: TextAlign.center,"Create account",style: TextStyle(fontSize: 20.sp),)),
                 ),
-                child: Center(child: Text(textAlign: TextAlign.center,"Create account",style: TextStyle(fontSize: 20.sp),)),
               )
 
 
