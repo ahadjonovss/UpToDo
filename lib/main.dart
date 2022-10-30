@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
             ),
             themeMode: ThemeMode.dark,
             onGenerateRoute: AppRoutes.generateRoute,
-            initialRoute: RouteName.splash,
+            initialRoute: RouteName.home,
             debugShowCheckedModeBanner: false,
             title: 'UpToDo',
           );
