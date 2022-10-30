@@ -1,8 +1,12 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:up_todo/core/widgets/bottom_nbar_widget.dart';
+import 'package:up_todo/core/widgets/bottom_sheet.dart';
 import 'package:up_todo/core/widgets/text_field.dart';
+import 'package:up_todo/utils/colors.dart';
 import 'package:up_todo/utils/consts.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,19 +17,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController ctrl_bt=TextEditingController();
+  TextEditingController  ctrl_bt=TextEditingController();
+  TextEditingController  ctrl_desc=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text("Index"),
+        title: const Text("Index"),
         centerTitle: true,
-        leading: Icon(Icons.menu),
+        leading: const Icon(Icons.menu),
       ),
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
@@ -57,155 +62,37 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      bottomNavigationBar: SizedBox(
-        height: 80.h,
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_month), label: ""),
-            BottomNavigationBarItem(icon: Icon(null), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.history), label: ""),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline), label: ""),
-          ],
+      floatingActionButton: SizedBox(
+      height: 70.0.h,
+      width: 70.0.w,
+      child: FittedBox(
+        child: FloatingActionButton(
+            onPressed: () {
+              bottomSheet(context, ctrl_bt,ctrl_desc);
+            },
+          backgroundColor: MyColors.purple,
+          child: Text("+",style: TextStyle(color: Colors.white,fontSize: 28.sp,fontWeight: FontWeight.w300),),
         ),
       ),
-      floatingActionButton: InkWell(
-        onTap: (){
-          showModalBottomSheet(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              backgroundColor: Colors.white,
-           context: context,
-              builder: (BuildContext context) {
-                return Container(
-                  padding: EdgeInsets.all(24).r,
-                  color: Colors.black54,
-                  child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Add Task',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20.sp),),
-                    SizedBox(height: 8.h,),
-                    Container(
-                      padding: EdgeInsets.only(left: 12).r,
-                      height: 52.h,
-                      width: 358.w,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xFF979797)),
-                          borderRadius: BorderRadius.circular(4).r,
-                          color:  Colors.black54,
-
-                      ),
-                      child: TextField(
-                        obscureText: false,
-                        controller: ctrl_bt,
-                        decoration:  const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Write your task",
-                            hintStyle: const TextStyle(color: Colors.white)
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 8.h,),
-                    Container(
-                      padding: EdgeInsets.only(left: 12).r,
-                      height: 52.h,
-                      width: 358.w,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: const Color(0xFF979797)),
-                        borderRadius: BorderRadius.circular(4).r,
-                        color:  Colors.black54,
-
-                      ),
-                      child: TextField(
-                        obscureText: false,
-                        controller: ctrl_bt,
-                        decoration:  const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: "Description",
-                            hintStyle: const TextStyle(color: Colors.white)
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            IconButton(
-                                onPressed: () async {
-                                  var results = await showCalendarDatePicker2Dialog(
-                                    context: context,
-                                    config: CalendarDatePicker2WithActionButtonsConfig(),
-                                    dialogSize: const Size(325, 400),
-                                    initialValue: List.empty(),
-                                    borderRadius: BorderRadius.circular(15),
-                                  );
-                                  print(results);
-                                },
-                                icon: Icon(Icons.calendar_month_outlined)),
-                            IconButton(
-                                onPressed: (){},
-                                icon: Icon(Icons.timer_outlined)),
-                            IconButton(
-                                onPressed: (){
-                                  TimePickerDialog(initialTime: TimeOfDay.fromDateTime(DateTime(28,10,2022)),
-                                  );
-                                },
-                                icon: Icon(Icons.flag)),
-                          ],
-                        ),
-                        IconButton(
-                            onPressed: (){},
-                            icon: Icon(Icons.send)),
-                      ],
-                    )
-                  ],
-                  ),
-
-                );
-              });
-        },
-        child: Stack(children: [
-          Positioned(
-            bottom: 34,
-            left: 155.9,
-            child: Container(
-              width: 90,
-              height: 45.5,
-              decoration: BoxDecoration(
-                  color: Color(0xff121212),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.elliptical(76, 80),
-                      bottomRight: Radius.elliptical(76, 80))),
-            ),
-          ),
-          Positioned(
-            bottom: 40,
-            left: 165,
-            child: Container(
-                height: 72,
-                width: 72,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.purple,
-                ),
-                child: Center(
-                  child: Text(
-                    "+",
-                    style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white),
-                  ),
-                )),
-          ),
-        ]),
-      ),
+    ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: AnimatedBottomNavigationBar(
+        icons: const [
+          Icons.home,
+          Icons.calendar_month,
+          Icons.history,
+          Icons.person,
+        ],
+        activeIndex: 0,
+        gapLocation: GapLocation.center,
+        notchSmoothness: NotchSmoothness.softEdge,
+        gapWidth: 40.w,
+        onTap: (index) => setState(() {}),
+        backgroundColor: MyColors.C_363636,
+        height: 90.h,
+
+        //other params
+      ),
     );
   }
 }
