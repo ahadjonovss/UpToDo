@@ -23,7 +23,7 @@ class AppRoutes{
       case RouteName.splash:
         return MaterialPageRoute(builder: (_)=> const SplashPage());
       case RouteName.home:
-        return MaterialPageRoute(builder: (_)=> const HomePage());
+        return MaterialPageRoute(builder: (_)=>  HomePage());
       case RouteName.register:
         return MaterialPageRoute(builder: (_)=> const RegisterPage());
       case RouteName.login:
