@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import '../models/task_model.dart';
 
 class LocalDatabase{
-  static String tablename="todoTable";
+  static String tablename="newToDoTable";
   static LocalDatabase getInstance=LocalDatabase._init();
 
   Database? _database;
@@ -12,7 +12,7 @@ class LocalDatabase{
 
   Future<Database> getDb() async {
     if (_database == null) {
-      _database = await _initDb("todo.db");
+      _database = await _initDb("Todo.db");
       return _database!;
     }
     return _database!;
@@ -31,18 +31,21 @@ class LocalDatabase{
           String boolType = "INTEGER";
           await db.execute('''
       Create table $tablename(
-       TodoFields.id $idType,
-            TodoFields.title $textType, 
-            TodoFields.description $textType, 
-            TodoFields.date $textType,
-            TodoFields.priority $textType,
-            TodoFields.isCompleted $boolType
+       id $idType,
+            title $textType, 
+            description $textType, 
+            date $textType,
+            priority $intType,
+            isCompleted $boolType,
+            time $textType,
+            category $textType
       )
       ''');
         }
     );
     return database;
   }
+
 
   static Future<Task> insertToDatabase(Task newTodo) async {
     var database = await getInstance.getDb();
@@ -57,6 +60,11 @@ class LocalDatabase{
       'id',
       'title',
       'description',
+      'date' ,
+      'priority' ,
+      'isCompleted' ,
+      'time' ,
+      'category'
     ]);
 
     var list = listOfTodos.map((e) => Task.fromJson(e)).toList();

@@ -5,7 +5,7 @@ class Task {
   String date;
   String time;
   int priority;
-  bool isComplated;
+  int isComplated;
   String category;
 
   Task(
@@ -25,7 +25,7 @@ class Task {
     String date = json['date'] ?? "";
     String time = json['time'] ?? "";
     int priority = json['priority'] ?? 0;
-    bool isComplated = json['isComplated'] ?? false;
+    int isComplated = json['isComplated'] ?? 0;
     String category = json['category'] ?? "";
 
     return Task(
@@ -45,7 +45,7 @@ class Task {
       "date": this.date,
       "time": this.time,
       "priority": this.priority,
-      "isComplated": this.isComplated,
+      "isCompleted": this.isComplated,
       "category": this.category,
     };
   }
@@ -56,7 +56,7 @@ class Task {
     String? date,
     String? time,
     int? priority,
-    bool? isComplated,
+    int? isComplated,
     String? category,
   }) =>
       Task(

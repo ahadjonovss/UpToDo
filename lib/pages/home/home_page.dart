@@ -3,8 +3,12 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:up_todo/core/widgets/task_widget.dart';
 import 'package:up_todo/utils/colors.dart';
 import 'package:up_todo/utils/consts.dart';
+
+import '../../core/database/database.dart';
+import '../../core/models/task_model.dart';
 
 class HomePage extends StatefulWidget {
    HomePage({Key? key}) : super(key: key);
@@ -14,6 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Task newtask=Task(title: "title", description: "description", category: "category", date: "date", isComplated: 0, priority: 1, time: "time");
   int selected=-1;
   void setstate(int index) {
     setState(() {
@@ -34,38 +39,71 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         leading: const Icon(Icons.menu),
       ),
-      body: SafeArea(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 54.h,
+      body: FutureBuilder(
+        future: LocalDatabase.getList(),
+        builder: (context, snapshot) {
+          if(snapshot.hasData){
+            return snapshot.data!.length>0?Container(
+              child: Container(
+                height: 800.h,
+                width: 400.w,
+                padding: const EdgeInsets.all(28).r,
+                child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: snapshot.data?.length,
+                    itemBuilder: (context, index) => task(snapshot.data![index]),)
               ),
-              Container(
-                alignment: Alignment.center,
-                height: 300.h,
-                width: 300.w,
-                child: Lottie.asset(Consts.lt_onb3),
+            ):
+            SafeArea(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 54.h,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      height: 300.h,
+                      width: 300.w,
+                      child: Lottie.asset(Consts.lt_onb3),
+                    ),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    Text(
+                      "What do you want to do today?",
+                      style: TextStyle(fontSize: 20.sp),
+                    ),
+                    SizedBox(
+                      height: 12.h,
+                    ),
+                    Text(
+                      "Tap + to add your tasks",
+                      style: TextStyle(fontSize: 16.sp),
+                    )
+                  ],
+                ),
               ),
-              SizedBox(
-                height: 24.h,
+            );
+          }
+          if(snapshot.hasError){
+            return Container(
+              child: Center(
+                child: Text( snapshot.error.toString()),
               ),
-              Text(
-                "What do you want to do today?",
-                style: TextStyle(fontSize: 20.sp),
+            );
+          }
+          if(snapshot.connectionState==ConnectionState.waiting){
+            return Container(
+              child: Center(
+                child: Text("Waiting"),
               ),
-              SizedBox(
-                height: 12.h,
-              ),
-              Text(
-                "Tap + to add your tasks",
-                style: TextStyle(fontSize: 16.sp),
-              )
-            ],
-          ),
-        ),
+            );
+          }
+          return Container();
+        },
       ),
       floatingActionButton: SizedBox(
       height: 70.0.h,
@@ -87,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            (selected==1)==true?"Nmadir":'Add Task',
+                            'Add Task',
                             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20.sp),
                           ),
                           Column(
@@ -152,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                                           borderRadius: BorderRadius.circular(15),
 
                                         );
-                                        Future.microtask(() => print(results));
+                                        Future.microtask(() => newtask?.date=results.toString().substring(0,10));
                                       },
                                       icon: const Icon(Icons.calendar_month_outlined)),
                                   IconButton(
@@ -161,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                                           context: context,
                                           initialTime: TimeOfDay.now(),
                                         );
-                                        Future.microtask(() => print(time));
+                                        Future.microtask(() => newtask?.time=time.toString().substring(0,10));
                                       }, icon: const Icon(Icons.timer_outlined)),
                                   IconButton(
                                       onPressed: () async {
@@ -229,14 +267,20 @@ class _HomePageState extends State<HomePage> {
                                                             Navigator.pop(context);
                                                           },
                                                               child:Text("Cancel",style: TextStyle(color: MyColors.C_8687E7,fontSize: 18.sp),) ),
-                                                          Container(
-                                                            height: 48.h,
-                                                            width: 120.w,
-                                                            decoration: BoxDecoration(
-                                                                color: MyColors.C_8687E7,
-                                                                borderRadius: BorderRadius.circular(4).r
+                                                          InkWell(
+                                                            onTap: (){
+                                                              newtask.priority=selected+1;
+                                                              Navigator.pop(context);
+                                                            },
+                                                            child: Container(
+                                                              height: 48.h,
+                                                              width: 120.w,
+                                                              decoration: BoxDecoration(
+                                                                  color: MyColors.C_8687E7,
+                                                                  borderRadius: BorderRadius.circular(4).r
+                                                              ),
+                                                              child: Center(child: Text("Save",style: TextStyle(fontSize: 18.sp),)),
                                                             ),
-                                                            child: Center(child: Text("Save",style: TextStyle(fontSize: 18.sp),)),
                                                           )
                                                         ],
                                                       )
@@ -251,7 +295,18 @@ class _HomePageState extends State<HomePage> {
                                       icon: const Icon(Icons.flag)),
                                 ],
                               ),
-                              IconButton(onPressed: () {}, icon: const Icon(Icons.send)),
+                              IconButton(onPressed: () async {
+                                newtask.title=ctrl_bt.text;
+                                newtask.description=ctrl_desc.text;
+                                newtask.category='University';
+                                newtask.isComplated=0;
+
+                                await LocalDatabase.insertToDatabase(newtask);
+                                Navigator.pop(context);
+                                setState(() {
+                                });
+
+                              }, icon: const Icon(Icons.send)),
                             ],
                           )
                         ],
