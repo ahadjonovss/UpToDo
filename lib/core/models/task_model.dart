@@ -20,6 +20,7 @@ class Task {
       required this.time});
 
   factory Task.fromJson(Map<String, dynamic> json) {
+    int id=json['id']??-1;
     String title = json['title'] ?? "";
     String description = json['description'] ?? "";
     String date = json['date'] ?? "";
@@ -29,6 +30,7 @@ class Task {
     String category = json['category'] ?? "";
 
     return Task(
+      id: id,
         title: title,
         description: description,
         category: category,
@@ -40,6 +42,7 @@ class Task {
 
   Map<String,dynamic> toJson(){
     return {
+      'id':this.id,
       "title": this.title,
       "description": this.description,
       "date": this.date,

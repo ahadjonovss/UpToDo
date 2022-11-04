@@ -50,8 +50,8 @@ class LocalDatabase{
   static Future<Task> insertToDatabase(Task newTodo) async {
     var database = await getInstance.getDb();
     int id = await database.insert(tablename, newTodo.toJson());
-    print("HAMMASI YAXSHI");
     return newTodo.copyWith(id: id);
+
   }
 
   static Future<List<Task>> getList() async {
@@ -70,6 +70,18 @@ class LocalDatabase{
     var list = listOfTodos.map((e) => Task.fromJson(e)).toList();
 
     return list;
+  }
+
+  static Future<Task> updateTaskById(Task updatedTask) async {
+    var database = await getInstance.getDb();
+    int id = await database.update(
+      tablename,
+      updatedTask.toJson(),
+      where: 'id = ?',
+      whereArgs: [updatedTask.id],
+    );
+    print("HAMMASI YAXSHI");
+    return updatedTask.copyWith(id: id);
   }
 
   static Future<int> deleteTaskById(int id) async {
