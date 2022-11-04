@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
       future: LocalDatabase.getList(),
       builder: (context, snapshot) {
         if(snapshot.hasData){
+          dynamic data=snapshot.data;
           return snapshot.data!.length>0?Container(
             child: Container(
                 height: 800.h,
@@ -37,8 +38,8 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context, index) => Dismissible(
                       key: UniqueKey(),
                       onDismissed: (direction) async {
-                        print(snapshot.data![index].id);
-                        await LocalDatabase.deleteTaskById(snapshot.data![index].id!);
+                        print(data[index].id);
+                        await LocalDatabase.deleteTaskById(data[index].id);
                         setState(() {});
                       },
                       child: task(context,snapshot.data![index],)),)

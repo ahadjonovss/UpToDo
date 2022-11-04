@@ -31,7 +31,7 @@ class LocalDatabase{
           String boolType = "INTEGER";
           await db.execute('''
       Create table $tablename(
-       id $idType,
+            id $idType,
             title $textType, 
             description $textType, 
             date $textType,
@@ -50,7 +50,9 @@ class LocalDatabase{
   static Future<Task> insertToDatabase(Task newTodo) async {
     var database = await getInstance.getDb();
     int id = await database.insert(tablename, newTodo.toJson());
+    print("HAMMASI YAXSHI");
     return newTodo.copyWith(id: id);
+
 
   }
 
@@ -67,7 +69,7 @@ class LocalDatabase{
       'category'
     ]);
 
-    var list = listOfTodos.map((e) => Task.fromJson(e)).toList();
+    List <Task> list = listOfTodos.map((e) => Task.fromJson(e)).toList();
 
     return list;
   }
@@ -80,6 +82,7 @@ class LocalDatabase{
       where: 'id = ?',
       whereArgs: [updatedTask.id],
     );
+    print(updatedTask.id);
     print("HAMMASI YAXSHI");
     return updatedTask.copyWith(id: id);
   }

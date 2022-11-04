@@ -19,7 +19,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  Task newtask=Task(title: "title", description: "description", category: "category", date: "date", isComplated: 0, priority: 1, time: "time");
+  Task newtask=Task(title: "title", description: "description", category: "category", date: "date", isComplated: 0, priority: 1, time: "time", id: 0);
   int selected=0;
   int priority=-1;
   void setstate(int index) {
@@ -258,7 +258,8 @@ class _MainPageState extends State<MainPage> {
                                 newtask.category='University';
                                 newtask.isComplated=0;
 
-                                await LocalDatabase.insertToDatabase(newtask);
+                                LocalDatabase.insertToDatabase(newtask);
+
                                 Navigator.pop(context);
                                  setState(() {
                                   selected=selected;

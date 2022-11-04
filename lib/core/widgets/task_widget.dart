@@ -14,7 +14,7 @@ Widget task(BuildContext context ,Task task,){
   ctrl_bt.text=task.title;
   ctrl_desc.text=task.description;
   int priority=0;
-  Task newtask=Task(title: "title", description: "description", category: "category", date: "date", isComplated: 0, priority: 1, time: "time");
+  Task newtask=Task(title: "title", description: "description", category: "category", date: "date", isComplated: 0, priority: 1, time: "time", id: 0);
   return InkWell(
     onTap: (){
       showModalBottomSheet(
@@ -96,7 +96,7 @@ Widget task(BuildContext context ,Task task,){
                                   borderRadius: BorderRadius.circular(15),
 
                                 );
-                                Future.microtask(() => newtask.date=results.toString().substring(10,20));
+                                Future.microtask(() => task.date=results.toString().substring(1,11));
                               },
                               icon: const Icon(Icons.calendar_month_outlined)),
                           IconButton(
@@ -105,7 +105,7 @@ Widget task(BuildContext context ,Task task,){
                                   context: context,
                                   initialTime: TimeOfDay.now(),
                                 );
-                                Future.microtask(() => newtask.time=time.toString().substring(10,20));
+                                Future.microtask(() => task.time=time.toString().substring(10,20));
                               }, icon: const Icon(Icons.timer_outlined)),
                           IconButton(
                               onPressed: () async {
@@ -175,7 +175,7 @@ Widget task(BuildContext context ,Task task,){
                                                       child:Text("Cancel",style: TextStyle(color: MyColors.C_8687E7,fontSize: 18.sp),) ),
                                                   InkWell(
                                                     onTap: (){
-                                                      newtask.priority=priority+1;
+                                                      task.priority=priority+1;
                                                       Navigator.pop(context);
                                                     },
                                                     child: Container(
@@ -202,15 +202,14 @@ Widget task(BuildContext context ,Task task,){
                         ],
                       ),
                       IconButton(onPressed: () async {
-                        newtask.title=ctrl_bt.text;
-                        newtask.description=ctrl_desc.text;
-                        newtask.category='University';
-                        newtask.isComplated=0;
+                        task.title=ctrl_bt.text;
+                        task.description=ctrl_desc.text;
+                        task.category='University';
+                        task.isComplated=0;
 
-                        await LocalDatabase.insertToDatabase(newtask);
+                        await LocalDatabase.updateTaskById(task);
                         Navigator.pop(context);
-
-                      }, icon: const Icon(Icons.send)),
+                      }, icon: const Icon(Icons.done)),
                     ],
                   )
                 ],
@@ -240,7 +239,7 @@ Widget task(BuildContext context ,Task task,){
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(task.title,style: TextStyle(color: Colors.white,fontSize: 18.sp),),
+              Text(task.title.toString(),style: TextStyle(color: Colors.white,fontSize: 18.sp),),
               Row(
                 children: [
                   Container(
