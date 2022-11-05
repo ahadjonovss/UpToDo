@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:up_todo/local_data/shared_preference.dart';
 import 'package:up_todo/routes/routes.dart';
 import 'package:up_todo/utils/colors.dart';
 
@@ -13,6 +14,10 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController ctrl_name=TextEditingController();
+    TextEditingController ctrl_newpsw=TextEditingController();
+    TextEditingController ctrl_oldpsw=TextEditingController();
+    TextEditingController ctrl_psw=TextEditingController();
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -32,7 +37,7 @@ class _AccountPageState extends State<AccountPage> {
                   radius: 40.r,
                 ),
                 SizedBox(height: 4.h,),
-                Text("Falonchi Fistonchiyev",style: TextStyle(fontSize: 20.sp),),
+                Text(StorageRepository.getString('name'),style: TextStyle(fontSize: 20.sp),),
                 SizedBox(height: 20.h,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,12 +93,12 @@ class _AccountPageState extends State<AccountPage> {
                         children: [
                           Icon(Icons.person_outline,color: Colors.white,),
                           SizedBox(width: 20.w,),
-                          Text("Change account name")
+                          const Text("Change account name")
                         ],
                       ),
                       children: [
-                        Text("Change account name"),
-                        Divider(color: Colors.white,),
+                        const Text("Change account name"),
+                        const Divider(color: Colors.white,),
                         Container(
                           margin: EdgeInsets.all(12).r,
                           padding: EdgeInsets.all(4).r,
@@ -104,9 +109,10 @@ class _AccountPageState extends State<AccountPage> {
                             border: Border.all(color: MyColors.C_979797)
                             
                           ),
-                          child: const Center(
+                          child:  Center(
                             child: TextField(
-                              decoration: InputDecoration(
+                              controller: ctrl_name,
+                              decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "Enter your name"
                               ),
@@ -115,27 +121,91 @@ class _AccountPageState extends State<AccountPage> {
                           
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextButton(onPressed: (){
                               Navigator.pushNamed(context, RouteName.account);
                             }, child: Text("Cancel")),
-                            TextButton(onPressed: (){
+                            TextButton(onPressed: () async {
+                              await StorageRepository.saveString('name', ctrl_name.text);
+                              ctrl_name.text='';
                               Navigator.pushNamed(context, RouteName.account);
                             }, child: Text("Save"))
                           ],
                         )
-
-
                       ],
                     ),
                     ExpansionTile(
                       title: Row(
                         children: [
-                          Icon(Icons.key,color: Colors.white,),
+                          const Icon(Icons.key,color: Colors.white,),
                           SizedBox(width: 20.w,),
-                          Text("Change account password")
+                          const Text("Change account password")
                         ],
                       ),
+                      children: [
+                        SizedBox(height: 20.w,),
+                        const Text("Change account password"),
+                        const Divider(color: Colors.white,),
+                        Container(
+                          margin: const EdgeInsets.all(12).r,
+                          padding: const EdgeInsets.all(4).r,
+                          height: 48.h,
+                          width: 288.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4).r,
+                              border: Border.all(color: MyColors.C_979797)
+
+                          ),
+                          child:  Center(
+                            child: TextField(
+                              controller: ctrl_oldpsw,
+                              decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Enter your old password"
+                              ),
+                            ),
+                          ),
+
+                        ),
+                        SizedBox(width: 20.w,),
+                        Container(
+                          margin: const EdgeInsets.all(12).r,
+                          padding: const EdgeInsets.all(4).r,
+                          height: 48.h,
+                          width: 288.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4).r,
+                              border: Border.all(color: MyColors.C_979797)
+
+                          ),
+                          child:  Center(
+                            child: TextField(
+                              controller: ctrl_newpsw,
+                              decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Enter your new password"
+                              ),
+                            ),
+                          ),
+
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(onPressed: (){
+                              Navigator.pushNamed(context, RouteName.account);
+                            }, child: Text("Cancel")),
+                            TextButton(onPressed: () async {
+                              if(ctrl_oldpsw.text==StorageRepository.getString('password')){
+                                await StorageRepository.saveString('password', ctrl_newpsw.text);
+                                Navigator.pop(context);
+                                Navigator.pushNamed(context, RouteName.account);
+                              }
+                            }, child: Text("Save"))
+                          ],
+                        )
+                      ],
                     ),
                     ExpansionTile(
                       title: Row(

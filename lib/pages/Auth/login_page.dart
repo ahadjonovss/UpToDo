@@ -5,6 +5,7 @@ import 'package:up_todo/core/widgets/text_field.dart';
 import 'package:up_todo/routes/routes.dart';
 import 'package:up_todo/utils/consts.dart';
 
+import '../../local_data/shared_preference.dart';
 import '../../utils/colors.dart';
 
 class LoginPage extends StatefulWidget {
@@ -46,9 +47,12 @@ class _LoginPageState extends State<LoginPage> {
                 textField("Password", "• • • • • • • • • • • •", psw_ctrl, true),
                 SizedBox(height: 70.h,),
                 InkWell(
-                  onTap: (){
+                  onTap: () async {
                     if((usrnm_ctrl.text.isNotEmpty&&psw_ctrl.text.isNotEmpty)==true){
-                      Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
+                      await StorageRepository.saveString("name", usrnm_ctrl.text);
+                      await StorageRepository.saveString('password', psw_ctrl.text);
+                      await StorageRepository.saveBool('login', true);
+                      Navigator.pushNamedAndRemoveUntil(context, RouteName.main, (route) => false);
                     }
                     if(usrnm_ctrl.text.isEmpty || psw_ctrl.text.isEmpty){
                       ScaffoldMessenger.of(context).showSnackBar(

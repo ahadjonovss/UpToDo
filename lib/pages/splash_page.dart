@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:up_todo/local_data/shared_preference.dart';
 import 'package:up_todo/routes/routes.dart';
 
 import '../utils/consts.dart';
@@ -12,7 +13,7 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 3)).then((value) =>
         Navigator.pushNamedAndRemoveUntil(context,
-            RouteName.onboarding, (route) => false));
+            StorageRepository.getBool('login')==true?RouteName.main:RouteName.onboarding, (route) => false));
     return  Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(

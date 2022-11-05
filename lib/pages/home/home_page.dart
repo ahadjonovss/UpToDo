@@ -22,79 +22,93 @@ class _HomePageState extends State<HomePage> {
   TextEditingController ctrl_desc=TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: LocalDatabase.getList(),
-      builder: (context, snapshot) {
-        if(snapshot.hasData){
-          dynamic data=snapshot.data;
-          return snapshot.data!.length>0?Container(
-            child: Container(
-                height: 800.h,
-                width: 400.w,
-                padding: const EdgeInsets.all(28).r,
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: snapshot.data?.length,
-                  itemBuilder: (context, index) => Dismissible(
-                      key: UniqueKey(),
-                      onDismissed: (direction) async {
-                        print(data[index].id);
-                        await LocalDatabase.deleteTaskById(data[index].id);
-                        setState(() {});
-                      },
-                      child: task(context,snapshot.data![index],)),)
-            ),
-          ):
-          SafeArea(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
+    return SafeArea(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              ExpansionTile(
+                  title: Text("Today"),
                 children: [
-                  SizedBox(
-                    height: 54.h,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: 300.h,
-                    width: 300.w,
-                    child: Lottie.asset(Consts.lt_onb3),
-                  ),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  Text(
-                    "What do you want to do today?",
-                    style: TextStyle(fontSize: 20.sp),
-                  ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  Text(
-                    "Tap + to add your tasks",
-                    style: TextStyle(fontSize: 16.sp),
+                  FutureBuilder(
+                    future: LocalDatabase.getList(),
+                    builder: (context, snapshot) {
+                      if(snapshot.hasData){
+                        dynamic data=snapshot.data;
+                        return snapshot.data!.length>0?Container(
+                          child: Container(
+                              height: 600.h,
+                              width: 400.w,
+                              padding: const EdgeInsets.all(28).r,
+                              child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: snapshot.data?.length,
+                                itemBuilder: (context, index) => Dismissible(
+                                    key: UniqueKey(),
+                                    onDismissed: (direction) async {
+                                      print(data[index].id);
+                                      await LocalDatabase.deleteTaskById(data[index].id);
+                                      setState(() {});
+                                    },
+                                    child: task(context,snapshot.data![index],)),)
+                          ),
+                        ):
+                        SafeArea(
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height,
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 54.h,
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  height: 300.h,
+                                  width: 300.w,
+                                  child: Lottie.asset(Consts.lt_onb3),
+                                ),
+                                SizedBox(
+                                  height: 24.h,
+                                ),
+                                Text(
+                                  "What do you want to do today?",
+                                  style: TextStyle(fontSize: 20.sp),
+                                ),
+                                SizedBox(
+                                  height: 12.h,
+                                ),
+                                Text(
+                                  "Tap + to add your tasks",
+                                  style: TextStyle(fontSize: 16.sp),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+                      if(snapshot.hasError){
+                        return Container(
+                          child: Center(
+                            child: Text( snapshot.error.toString()),
+                          ),
+                        );
+                      }
+                      if(snapshot.connectionState==ConnectionState.waiting){
+                        return Container(
+                          child: Center(
+                            child: Text("Waiting"),
+                          ),
+                        );
+                      }
+                      return Container();
+                    },
                   )
                 ],
               ),
-            ),
-          );
-        }
-        if(snapshot.hasError){
-          return Container(
-            child: Center(
-              child: Text( snapshot.error.toString()),
-            ),
-          );
-        }
-        if(snapshot.connectionState==ConnectionState.waiting){
-          return Container(
-            child: Center(
-              child: Text("Waiting"),
-            ),
-          );
-        }
-        return Container();
-      },
-    );
+              ExpansionTile(title: Text("Complated"))
+            ],
+          ),
+        ));
   }
 }

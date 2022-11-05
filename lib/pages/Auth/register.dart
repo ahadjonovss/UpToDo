@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/widgets/auth_sm.dart';
 import '../../core/widgets/text_field.dart';
+import '../../local_data/shared_preference.dart';
 import '../../routes/routes.dart';
 import '../../utils/consts.dart';
 
@@ -48,9 +49,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 textField("Confirm Password", "• • • • • • • • • • • •", c_psw_ctrl, true),
                 SizedBox(height: 40.h,),
                 InkWell(
-                  onTap: (){
+                  onTap: () async {
                     if((usrnm_ctrl.text.isNotEmpty&&psw_ctrl.text.isNotEmpty && (psw_ctrl.text==c_psw_ctrl.text))==true){
-                      Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
+                      await StorageRepository.saveString("name", usrnm_ctrl.text);
+                      await StorageRepository.saveString('password', psw_ctrl.text);
+                      await StorageRepository.saveBool('login', true);
+
+                      Navigator.pushNamedAndRemoveUntil(context, RouteName.main, (route) => false);
                     }
                     if(usrnm_ctrl.text.isNotEmpty && (psw_ctrl.text!=c_psw_ctrl.text)){
                       ScaffoldMessenger.of(context).showSnackBar(const
