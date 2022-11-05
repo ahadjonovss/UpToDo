@@ -2,8 +2,9 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
-import 'package:up_todo/core/widgets/task_widget.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:up_todo/local_data/category_list.dart';
+import 'package:up_todo/pages/home/account_page.dart';
 import 'package:up_todo/pages/home/home_page.dart';
 import 'package:up_todo/utils/colors.dart';
 import 'package:up_todo/utils/consts.dart';
@@ -33,14 +34,14 @@ class _MainPageState extends State<MainPage> {
   TextEditingController  ctrl_bt=TextEditingController();
   TextEditingController  ctrl_desc=TextEditingController();
 
-  List <Widget> pages=[
-    HomePage(),
-    Container(),
-    Container(),
-    Container(),
-  ];
   @override
   Widget build(BuildContext context) {
+    List <Widget> pages=[
+      HomePage(),
+      Container(),
+      Container(),
+      AccountPage(),
+    ];
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -250,20 +251,97 @@ class _MainPageState extends State<MainPage> {
                                             });
                                       },
                                       icon: const Icon(Icons.flag)),
+                                  IconButton(
+                                      onPressed: () async {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return StatefulBuilder(
+                                                builder: (context, state) {
+                                                  return AlertDialog(
+                                                    backgroundColor: MyColors.C_363636,
+                                                    content: SizedBox(
+                                                      height: 420.h,
+                                                      child: Column(
+                                                        children: [
+                                                          const Text("Choose Category",textAlign: TextAlign.center,),
+                                                          SizedBox(height: 8.h,),
+                                                          const Divider(color: Colors.white,),
+                                                          SizedBox(height: 12.h,),
+                                                          SizedBox(
+                                                            height: 353.h,
+                                                            width: 350.w,
+                                                            child: GridView.builder(
+                                                              itemCount: 10,
+                                                              gridDelegate:  const  SliverGridDelegateWithFixedCrossAxisCount(
+                                                                  crossAxisCount: 3,
+                                                                  crossAxisSpacing: 3,
+                                                                  mainAxisSpacing: 4
+                                                              ),
+                                                              itemBuilder: (context, index1) {
+                                                                return InkWell(
+                                                                  onTap: (){
+                                                                    state(() {
+                                                                      newtask.category=categories[index1].title;
+                                                                      Navigator.pop(context);
+                                                                    });
+
+                                                                  },
+                                                                  child: Container(
+                                                                    height: 90.h,
+                                                                    width: 64.w,
+                                                                    child: Column(
+                                                                      children: [
+                                                                        Container(
+                                                                          decoration: BoxDecoration(
+                                                                              color: categories[index1].clr,
+                                                                              borderRadius: BorderRadius.circular(4).r
+                                                                          ),
+                                                                          height: 64.h,
+                                                                          width: 64.w,
+                                                                          child: Center(
+                                                                            child: SvgPicture.asset(categories[index1].icon),
+                                                                          ),
+                                                                        ),
+                                                                        Text(categories[index1].title,style: TextStyle(fontSize: 12.sp),),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },),
+                                                          ),
+                                                          SizedBox(height: 12.h,),
+                                                        ],
+                                                      ),
+                                                    ),
+
+                                                  );
+                                                },
+                                              );
+                                            });
+                                      },
+                                      icon: const Icon(Icons.label)),
                                 ],
                               ),
                               IconButton(onPressed: () async {
-                                newtask.title=ctrl_bt.text;
-                                newtask.description=ctrl_desc.text;
-                                newtask.category='University';
-                                newtask.isComplated=0;
+                                if(ctrl_desc.text.isNotEmpty &&
+                                ctrl_bt.text.isNotEmpty)
+                                {
+                                  newtask.title=ctrl_bt.text;
+                                  newtask.description=ctrl_desc.text;
+                                  newtask.isComplated=0;
 
-                                LocalDatabase.insertToDatabase(newtask);
+                                  LocalDatabase.insertToDatabase(newtask);
 
-                                Navigator.pop(context);
-                                 setState(() {
-                                  selected=selected;
-                                });
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    selected=selected;
+                                  });
+
+                                }
+                                else{
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please,fill all fields!")));
+                                }
 
                               }, icon: const Icon(Icons.send)),
                             ],

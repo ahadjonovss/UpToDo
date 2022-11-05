@@ -1,7 +1,10 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:up_todo/core/models/category_model.dart';
+import 'package:up_todo/local_data/category_list.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/consts.dart';
@@ -9,12 +12,17 @@ import '../database/database.dart';
 import '../models/task_model.dart';
 
 Widget task(BuildContext context ,Task task,){
+  MyCategory? cat;
   TextEditingController ctrl_bt=TextEditingController();
   TextEditingController ctrl_desc=TextEditingController();
+  for(MyCategory i in categories){
+    if(i.title==task.category){
+      cat=i;
+    }
+  }
   ctrl_bt.text=task.title;
   ctrl_desc.text=task.description;
   int priority=0;
-  Task newtask=Task(title: "title", description: "description", category: "category", date: "date", isComplated: 0, priority: 1, time: "time", id: 0);
   return InkWell(
     onTap: (){
       showModalBottomSheet(
@@ -87,7 +95,10 @@ Widget task(BuildContext context ,Task task,){
                         children: [
                           IconButton(
                               onPressed: ()   async {
+                               DateTime? init_time;
+                               init_time=DateTime.tryParse(task.date);
                                 var results = await showCalendarDatePicker2Dialog(
+                                  initialValue: [init_time],
                                   context: context,
                                   config: CalendarDatePicker2WithActionButtonsConfig(
                                   ),
@@ -101,9 +112,10 @@ Widget task(BuildContext context ,Task task,){
                               icon: const Icon(Icons.calendar_month_outlined)),
                           IconButton(
                               onPressed: () async{
+                                TimeOfDay init_time = TimeOfDay(hour: int.parse(task.time.split(":")[0]), minute: int.parse(task.time.split(":")[1]));
                                 var time= await showTimePicker(
                                   context: context,
-                                  initialTime: TimeOfDay.now(),
+                                  initialTime: init_time,
                                 );
                                 Future.microtask(() => task.time=time.toString().substring(10,20));
                               }, icon: const Icon(Icons.timer_outlined)),
@@ -139,7 +151,7 @@ Widget task(BuildContext context ,Task task,){
                                                       },
                                                       child: Container(
                                                         decoration: BoxDecoration(
-                                                            color: (priority==index1)==true?MyColors.C_8687E7:MyColors.C_272727,
+                                                            color: (task.priority-1==index1)==true?MyColors.C_8687E7:MyColors.C_272727,
                                                             borderRadius: BorderRadius.circular(4).r
                                                         ),
                                                         height: 64.h,
@@ -252,13 +264,18 @@ Widget task(BuildContext context ,Task task,){
                     height: 30.h,
                     width: 90.w,
                     decoration: BoxDecoration(
-                      color: MyColors.C_8687E7,
+                      color: cat!.clr,
                       borderRadius: BorderRadius.circular(4).r,
 
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Container(
+                          height: 16.h,
+                            width: 16.w,
+                            child: SvgPicture.asset('assets/images/svg_images/${task.category.toLowerCase()}.svg')),
+                        SizedBox(width: 4.w,),
                         Text(task.category,style: TextStyle(fontSize: 12.sp),)
                       ],
                     ),

@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-class Category{
+class MyCategory{
   String title;
   Color clr;
   String icon;
-  Category(this.title,this.clr,this.icon);
+  MyCategory(this.title,this.clr,this.icon);
 
 }

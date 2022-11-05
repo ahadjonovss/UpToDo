@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:up_todo/pages/Auth/login_page.dart';
 import 'package:up_todo/pages/Auth/register.dart';
+import 'package:up_todo/pages/home/account_page.dart';
 import 'package:up_todo/pages/home/home_page.dart';
 import 'package:up_todo/pages/home/main_page.dart';
 import 'package:up_todo/pages/onboarding/starting_page.dart';
@@ -9,6 +10,7 @@ import 'package:up_todo/pages/splash_page.dart';
 
 class RouteName{
   static const splash="splsh";
+  static const account="acnt";
   static const onboarding="onb";
   static const start="str";
   static const login="lgn";
@@ -25,6 +27,8 @@ class AppRoutes{
     switch(settings.name){
       case RouteName.splash:
         return MaterialPageRoute(builder: (_)=> const SplashPage());
+        case RouteName.account:
+        return MaterialPageRoute(builder: (_)=> const AccountPage());
       case RouteName.main:
         return MaterialPageRoute(builder: (_)=>  MainPage());
       case RouteName.home:
