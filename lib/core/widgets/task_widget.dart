@@ -1,4 +1,5 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -280,7 +281,7 @@ Widget task(BuildContext context ,Task task,VoidCallback setstate){
                             width: 16.w,
                             child: SvgPicture.asset('assets/images/svg_images/${task.category.toLowerCase()}.svg')),
                         SizedBox(width: 4.w,),
-                        Text(task.category,style: TextStyle(fontSize: 12.sp),)
+                        Text(task.category.tr(),style: TextStyle(fontSize: 12.sp),)
                       ],
                     ),
                   ),

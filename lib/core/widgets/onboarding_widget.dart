@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,7 +55,7 @@ Widget onboarding_wdj(String lottie,int ind,String title,String subtitle){
         Text(title,style: TextStyle(
             color: Colors.white,fontSize: 32.sp,fontWeight: FontWeight.w600
         ),),
-        SizedBox(height: 40.h,),
+        SizedBox(height: 30.h,),
         Text(subtitle,style: TextStyle(
           color: Colors.white.withOpacity(0.87),fontSize: 16.sp,
         ),textAlign: TextAlign.center,)
@@ -67,17 +68,17 @@ Widget onboarding_wdj(String lottie,int ind,String title,String subtitle){
 List<Widget> onboardings=[
   onboarding_wdj(
       Consts.lt_onb1, 1,
-      "Manage your tasks",
+      "Manage your tasks".tr(),
       "You can easily manage all of your daily"
-          "\ntasks in DoMe for free"),
+          "\ntasks in DoMe for free".tr()),
   onboarding_wdj(
       Consts.lt_onb2, 2,
-      "Create daily routine",
+      "Create daily routine".tr(),
       "In Uptodo  you can create your\n"
-          "personalized routine to stay productive"),
+          "personalized routine to stay productive".tr()),
   onboarding_wdj(
       Consts.lt_onb3, 3,
-      "Orgonaize your tasks",
+      "Orgonaize your tasks".tr(),
       "You can organize your daily tasks by\n"
-          "adding your tasks into separate categories"),
+          "adding your tasks into separate categories".tr()),
 ];

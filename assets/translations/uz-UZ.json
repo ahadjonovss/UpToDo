@@ -38,5 +38,23 @@
   "Work": "Ish",
   "What do you want to do today?": "Bugun nimalarni reja qilmoqchisiz?",
   "Invalid password": "Parol xato kiritildi",
-  "Tap + to add your tasks": "Vazifa qo'shish uchun + ni bosing"
+  "Tap + to add your tasks": "Vazifa qo'shish uchun + ni bosing",
+  "Choose Category": "Toifa tanlash",
+  "Please,fill all fields!": "Iltimos, barcha bo'limlarni to'ldiring",
+
+  "Skip": "O'tkazib yuborish",
+  "Back": "Ortga",
+  "Next": "Keyingisi",
+  "Get Started": "Boshlash",
+
+  "Manage your tasks": "Vazifalarni boshqar",
+  "You can easily manage all of your daily\ntasks in DoMe for free": "Kundalik vazifalaringni UpToDo ilovasi orqali osonlik bilan nazorat qiling",
+  "Create daily routine": "Kun tartibini o'rnat",
+  "In Uptodo  you can create your\npersonalized routine to stay productive": "UpToDo ilovasida shaxsiy kun tartibingizni yarating va kundalik samaradorlikni yanada oshiring",
+  "Orgonaize your tasks": "Vazifalarni tashkillashtir",
+  "You can organize your daily tasks by\nadding your tasks into separate categories": "Kundalik vazifalaringnizni toifalarga ajratgan holda tartiblashingiz mumkin"
+
+
+
+
 }

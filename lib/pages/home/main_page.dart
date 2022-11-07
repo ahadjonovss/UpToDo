@@ -163,7 +163,7 @@ class _MainPageState extends State<MainPage> {
                                                       height: 320.h,
                                                       child: Column(
                                                         children: [
-                                                          const Text("Task Priority",textAlign: TextAlign.center,),
+                                                           Text("Task Priority".tr(),textAlign: TextAlign.center,),
                                                           SizedBox(height: 8.h,),
                                                           const Divider(color: Colors.white,),
                                                           SizedBox(height: 12.h,),
@@ -220,7 +220,7 @@ class _MainPageState extends State<MainPage> {
                                                                 priority=-1;
                                                                 Navigator.pop(context);
                                                               },
-                                                                  child:Text("Cancel",style: TextStyle(color: MyColors.C_8687E7,fontSize: 18.sp),) ),
+                                                                  child:Text("Cancel".tr(),style: TextStyle(color: MyColors.C_8687E7,fontSize: 18.sp),) ),
                                                               InkWell(
                                                                 onTap: (){
                                                                   newtask.priority=priority+1;
@@ -236,7 +236,7 @@ class _MainPageState extends State<MainPage> {
                                                                       color: MyColors.C_8687E7,
                                                                       borderRadius: BorderRadius.circular(4).r
                                                                   ),
-                                                                  child: Center(child: Text("Save",style: TextStyle(fontSize: 18.sp),)),
+                                                                  child: Center(child: Text("Save".tr(),style: TextStyle(fontSize: 18.sp),)),
                                                                 ),
                                                               )
                                                             ],
@@ -265,7 +265,7 @@ class _MainPageState extends State<MainPage> {
                                                       height: 420.h,
                                                       child: Column(
                                                         children: [
-                                                          const Text("Choose Category",textAlign: TextAlign.center,),
+                                                          Text("Choose Category".tr(),textAlign: TextAlign.center,),
                                                           SizedBox(height: 8.h,),
                                                           const Divider(color: Colors.white,),
                                                           SizedBox(height: 12.h,),
@@ -304,7 +304,8 @@ class _MainPageState extends State<MainPage> {
                                                                             child: SvgPicture.asset(categories[index1].icon),
                                                                           ),
                                                                         ),
-                                                                        Text(categories[index1].title,style: TextStyle(fontSize: 12.sp),),
+                                                                        SizedBox(height: 4,),
+                                                                        Text(categories[index1].title.tr(),style: TextStyle(fontSize: 12.sp),),
                                                                       ],
                                                                     ),
                                                                   ),
@@ -347,7 +348,7 @@ class _MainPageState extends State<MainPage> {
 
                                 }
                                 else{
-                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please,fill all fields!")));
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please,fill all fields!".tr())));
                                 }
 
                               }, icon: const Icon(Icons.send)),

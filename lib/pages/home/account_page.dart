@@ -14,6 +14,7 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  int lang=StorageRepository.getInt('lang');
   @override
   Widget build(BuildContext context) {
     TextEditingController ctrl_name=TextEditingController();
@@ -85,7 +86,28 @@ class _AccountPageState extends State<AccountPage> {
                         ],
                       ),
                       children: [
-                        Text("No settings".tr()),
+                        RadioListTile(
+                            selected: lang==0,
+                            title: Text("English"),
+                            value: 0,
+                            groupValue:lang,
+                            onChanged: (val) async {
+                              lang=val!;
+                              context.setLocale(Locale('en',"EN"));
+                              await StorageRepository.saveInt('lang', 0);
+                              setState(() {});
+                            }),
+                        RadioListTile(
+                            title: Text("Uzbek"),
+                            selected: lang==1,
+                            value: 1,
+                            groupValue:lang,
+                            onChanged: (val)async{
+                              await StorageRepository.saveInt('lang', 1);
+                              lang=val!;
+                              context.setLocale(Locale('uz',"UZ"));
+                              setState(() {});
+                            }),
                         SizedBox(height: 20.h,),
                       ],
                     ),
