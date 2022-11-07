@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:up_todo/local_data/shared_preference.dart';
 import 'package:up_todo/routes/routes.dart';
 import 'package:up_todo/utils/colors.dart';
@@ -30,7 +32,7 @@ class _AccountPageState extends State<AccountPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Profile",style: TextStyle(fontSize: 20.sp),),
+                Text("Profile".tr(),style: TextStyle(fontSize: 20.sp),),
                 SizedBox(height: 12.h,),
                 CircleAvatar(
                   backgroundImage: NetworkImage("https://picsum.photos/seed/picsum/200/300"),
@@ -50,7 +52,7 @@ class _AccountPageState extends State<AccountPage> {
                         color: MyColors.C_363636,
                       ),
                       child: Center(
-                        child: Text("10 task done",style: TextStyle(fontSize: 16.sp),),
+                        child: Text("10 task done".tr(),style: TextStyle(fontSize: 16.sp),),
                       ),
 
                     ),
@@ -62,7 +64,7 @@ class _AccountPageState extends State<AccountPage> {
                         color: MyColors.C_363636,
                       ),
                       child: Center(
-                        child: Text("10 task done",style: TextStyle(fontSize: 16.sp),),
+                        child: Text("10 task done".tr(),style: TextStyle(fontSize: 16.sp),),
                       ),
 
                     ),
@@ -72,36 +74,36 @@ class _AccountPageState extends State<AccountPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Settings",textAlign: TextAlign.start,),
+                    Text("Settings".tr(),textAlign: TextAlign.start,),
                     SizedBox(height: 12.h,),
                     ExpansionTile(
                       title: Row(
                         children: [
                           Icon(Icons.settings,color: Colors.white,),
                           SizedBox(width: 20.w,),
-                          Text("App settings")
+                          Text("App settings".tr())
                         ],
                       ),
                       children: [
-                        Text("No settings"),
+                        Text("No settings".tr()),
                         SizedBox(height: 20.h,),
                       ],
                     ),
-                    Text("Account",textAlign: TextAlign.start,),
+                    Text("Account".tr(),textAlign: TextAlign.start,),
                     ExpansionTile(
                       title: Row(
                         children: [
                           Icon(Icons.person_outline,color: Colors.white,),
                           SizedBox(width: 20.w,),
-                          const Text("Change account name")
+                           Text("Change account name".tr())
                         ],
                       ),
                       children: [
-                        const Text("Change account name"),
+                         Text("Change account name".tr()),
                         const Divider(color: Colors.white,),
                         Container(
-                          margin: EdgeInsets.all(12).r,
-                          padding: EdgeInsets.all(4).r,
+                          margin: const EdgeInsets.all(12).r,
+                          padding: const EdgeInsets.all(4).r,
                           height: 48.h,
                           width: 288.w,
                           decoration: BoxDecoration(
@@ -112,9 +114,9 @@ class _AccountPageState extends State<AccountPage> {
                           child:  Center(
                             child: TextField(
                               controller: ctrl_name,
-                              decoration: const InputDecoration(
+                              decoration:  InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "Enter your name"
+                                hintText: "Enter your name".tr()
                               ),
                             ),
                           ),
@@ -125,12 +127,12 @@ class _AccountPageState extends State<AccountPage> {
                           children: [
                             TextButton(onPressed: (){
                               Navigator.pushNamed(context, RouteName.account);
-                            }, child: Text("Cancel")),
+                            }, child: Text("Cancel".tr())),
                             TextButton(onPressed: () async {
                               await StorageRepository.saveString('name', ctrl_name.text);
                               ctrl_name.text='';
                               Navigator.pushNamed(context, RouteName.account);
-                            }, child: Text("Save"))
+                            }, child: Text("Save".tr()))
                           ],
                         )
                       ],
@@ -140,12 +142,12 @@ class _AccountPageState extends State<AccountPage> {
                         children: [
                           const Icon(Icons.key,color: Colors.white,),
                           SizedBox(width: 20.w,),
-                          const Text("Change account password")
+                           Text("Change account password".tr())
                         ],
                       ),
                       children: [
                         SizedBox(height: 20.w,),
-                        const Text("Change account password"),
+                         Text("Change account password".tr()),
                         const Divider(color: Colors.white,),
                         Container(
                           margin: const EdgeInsets.all(12).r,
@@ -160,9 +162,9 @@ class _AccountPageState extends State<AccountPage> {
                           child:  Center(
                             child: TextField(
                               controller: ctrl_oldpsw,
-                              decoration: const InputDecoration(
+                              decoration:  InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: "Enter your old password"
+                                  hintText: "Enter your old password".tr()
                               ),
                             ),
                           ),
@@ -182,9 +184,9 @@ class _AccountPageState extends State<AccountPage> {
                           child:  Center(
                             child: TextField(
                               controller: ctrl_newpsw,
-                              decoration: const InputDecoration(
+                              decoration:  InputDecoration(
                                   border: InputBorder.none,
-                                  hintText: "Enter your new password"
+                                  hintText: "Enter your new password".tr()
                               ),
                             ),
                           ),
@@ -195,14 +197,17 @@ class _AccountPageState extends State<AccountPage> {
                           children: [
                             TextButton(onPressed: (){
                               Navigator.pushNamed(context, RouteName.account);
-                            }, child: Text("Cancel")),
+                            }, child: Text("Cancel".tr())),
                             TextButton(onPressed: () async {
                               if(ctrl_oldpsw.text==StorageRepository.getString('password')){
                                 await StorageRepository.saveString('password', ctrl_newpsw.text);
                                 Navigator.pop(context);
                                 Navigator.pushNamed(context, RouteName.account);
                               }
-                            }, child: Text("Save"))
+                              else{
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Invalid password!".tr(),style: TextStyle(color: Colors.red),)));
+                              }
+                            }, child: Text("Save".tr()))
                           ],
                         )
                       ],
@@ -212,17 +217,17 @@ class _AccountPageState extends State<AccountPage> {
                         children: [
                           Icon(Icons.image,color: Colors.white,),
                           SizedBox(width: 20.w,),
-                          Text("Change account image")
+                          Text("Change account image".tr())
                         ],
                       ),
                     ),
-                    Text("UpTodo",textAlign: TextAlign.start,),
+                    Text("UpTodo".tr(),textAlign: TextAlign.start,),
                     ExpansionTile(
                       title: Row(
                         children: [
                           Icon(Icons.info_outline,color: Colors.white,),
                           SizedBox(width: 20.w,),
-                          Text("About us")
+                          Text("About us".tr())
                         ],
                       ),
                     ),
@@ -231,7 +236,7 @@ class _AccountPageState extends State<AccountPage> {
                         children: [
                           Icon(Icons.question_answer,color: Colors.white,),
                           SizedBox(width: 20.w,),
-                          Text("FAQ")
+                          Text("FAQ".tr())
                         ],
                       ),
                     ),
@@ -240,7 +245,7 @@ class _AccountPageState extends State<AccountPage> {
                         children: [
                           Icon(Icons.live_help,color: Colors.white,),
                           SizedBox(width: 20.w,),
-                          Text("Help & Feedback")
+                          Text("Help & Feedback".tr())
                         ],
                       ),
                     ),
@@ -249,19 +254,22 @@ class _AccountPageState extends State<AccountPage> {
                         children: [
                           Icon(Icons.support_agent,color: Colors.white,),
                           SizedBox(width: 20.w,),
-                          Text("Support US")
+                          Text("Support US".tr())
                         ],
                       ),
                     ),
                     SizedBox(height: 12.h,),
                     InkWell(
-                      onTap: (){},
+                      onTap: (){
+                        StorageRepository.saveBool('login', false);
+                        Navigator.pushNamedAndRemoveUntil(context, RouteName.splash, (route) => false);
+                      },
                       child: Container(
                         margin: const EdgeInsets.only(left: 16).r,
                         child: Row(
-                          children: const [
+                          children:  [
                             Icon(Icons.logout_outlined,color: Colors.red,),
-                            Text("Log out",style: TextStyle(color: Colors.red),)
+                            Text("Log out".tr(),style: TextStyle(color: Colors.red),)
                           ],
                         ),
                       ),

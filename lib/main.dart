@@ -1,12 +1,22 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:up_todo/local_data/shared_preference.dart';
 import 'package:up_todo/routes/routes.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   StorageRepository.getInstance();
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+      saveLocale: true,
+        supportedLocales: const [
+      Locale('uz','UZ')
+    ],
+        path: 'assets/translations/',
+        child:  const MyApp())
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -20,6 +30,9 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return  MaterialApp(
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
             darkTheme: ThemeData(
               brightness: Brightness.dark,
             ),

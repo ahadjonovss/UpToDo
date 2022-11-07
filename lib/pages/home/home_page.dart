@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               ExpansionTile(
-                  title: Text("Today"),
+                  title: Text("Today".tr()),
                 children: [
                   FutureBuilder(
                     future: getList(),
@@ -78,14 +79,14 @@ class _HomePageState extends State<HomePage> {
                                   height: 24.h,
                                 ),
                                 Text(
-                                  "What do you want to do today?",
+                                  "What do you want to do today?".tr(),
                                   style: TextStyle(fontSize: 20.sp),
                                 ),
                                 SizedBox(
                                   height: 12.h,
                                 ),
                                 Text(
-                                  "Tap + to add your tasks",
+                                  "Tap + to add your tasks".tr(),
                                   style: TextStyle(fontSize: 16.sp),
                                 )
                               ],
@@ -113,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               ExpansionTile(
-                  title: Text("Complated"),
+                  title: Text("Complated".tr()),
                 children: [
                   FutureBuilder(
                     future: LocalDatabase.getList(),
@@ -159,14 +160,14 @@ class _HomePageState extends State<HomePage> {
                                   height: 24.h,
                                 ),
                                 Text(
-                                  "What do you want to do today?",
+                                  "What do you want to do today?".tr(),
                                   style: TextStyle(fontSize: 20.sp),
                                 ),
                                 SizedBox(
                                   height: 12.h,
                                 ),
                                 Text(
-                                  "Tap + to add your tasks",
+                                  "Tap + to add your tasks".tr(),
                                   style: TextStyle(fontSize: 16.sp),
                                 )
                               ],

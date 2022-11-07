@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -71,7 +72,7 @@ class _MainPageState extends State<MainPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Add Task',
+                            'Add Task'.tr(),
                             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20.sp),
                           ),
                           Column(
@@ -91,9 +92,9 @@ class _MainPageState extends State<MainPage> {
                                 child: TextField(
                                   obscureText: false,
                                   controller: ctrl_bt,
-                                  decoration: const InputDecoration(
+                                  decoration:  InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "Write your task",
+                                      hintText: "Write your task".tr(),
                                       hintStyle: TextStyle(color: Colors.white)),
                                 ),
                               ),
@@ -112,9 +113,9 @@ class _MainPageState extends State<MainPage> {
                                   maxLines: 5,
                                   obscureText: false,
                                   controller: ctrl_desc,
-                                  decoration: const InputDecoration(
+                                  decoration:  InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "Description",
+                                      hintText: "Description".tr(),
                                       hintStyle: TextStyle(color: Colors.white)),
                                 ),
                               ),
