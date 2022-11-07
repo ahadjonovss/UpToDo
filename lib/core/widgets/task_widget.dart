@@ -11,7 +11,7 @@ import '../../utils/consts.dart';
 import '../database/database.dart';
 import '../models/task_model.dart';
 
-Widget task(BuildContext context ,Task task,){
+Widget task(BuildContext context ,Task task,VoidCallback setstate){
   MyCategory? cat;
   TextEditingController ctrl_bt=TextEditingController();
   TextEditingController ctrl_desc=TextEditingController();
@@ -240,12 +240,16 @@ Widget task(BuildContext context ,Task task,){
       ),
       child: Row(
         children: [
-          Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.white),
-                shape: BoxShape.circle
+          InkWell(
+            onTap: () async {},
+            child: Container(
+              decoration: BoxDecoration(
+                color: task.isComplated==1?Colors.green:Colors.transparent,
+                  border: Border.all(color: Colors.white),
+                  shape: BoxShape.circle
+              ),
+              width: 20.w,
             ),
-            width: 20.w,
           ),
           SizedBox(width: 12.w,),
           Column(

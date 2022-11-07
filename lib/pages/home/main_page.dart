@@ -20,7 +20,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  Task newtask=Task(title: "title", description: "description", category: "category", date: "date", isComplated: 0, priority: 1, time: "time", id: 0);
+  Task newtask=Task(title: "title", description: "description", category: "category", date: "no data", isComplated: 0, priority: 0, time: "no time", id: 0);
   int selected=0;
   int priority=-1;
   void setstate(int index) {
@@ -325,8 +325,10 @@ class _MainPageState extends State<MainPage> {
                               ),
                               IconButton(onPressed: () async {
                                 if(ctrl_desc.text.isNotEmpty &&
-                                ctrl_bt.text.isNotEmpty)
+                                ctrl_bt.text.isNotEmpty && newtask.category!='category' && newtask.priority!=0)
                                 {
+                                  print(newtask.category);
+                                  print(newtask.priority);
                                   newtask.title=ctrl_bt.text;
                                   newtask.description=ctrl_desc.text;
                                   newtask.isComplated=0;
@@ -337,6 +339,10 @@ class _MainPageState extends State<MainPage> {
                                   setState(() {
                                     selected=selected;
                                   });
+
+                                  priority=-1;
+                                  ctrl_bt.text='';
+                                  ctrl_desc.text='';
 
                                 }
                                 else{

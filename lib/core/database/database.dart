@@ -68,8 +68,8 @@ class LocalDatabase{
       'time' ,
       'category'
     ]);
+    List <Task> list =listOfTodos.map((e) => Task.fromJson(e)).toList();
 
-    List <Task> list = listOfTodos.map((e) => Task.fromJson(e)).toList();
 
     return list;
   }
@@ -83,6 +83,7 @@ class LocalDatabase{
       whereArgs: [updatedTask.id],
     );
     print(updatedTask.id);
+    print(updatedTask.isComplated);
     print("HAMMASI YAXSHI");
     return updatedTask.copyWith(id: id);
   }
