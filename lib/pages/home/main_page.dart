@@ -288,7 +288,7 @@ class _MainPageState extends State<MainPage> {
                                                                     });
 
                                                                   },
-                                                                  child: Container(
+                                                                  child: SizedBox(
                                                                     height: 90.h,
                                                                     width: 64.w,
                                                                     child: Column(
@@ -304,7 +304,7 @@ class _MainPageState extends State<MainPage> {
                                                                             child: SvgPicture.asset(categories[index1].icon),
                                                                           ),
                                                                         ),
-                                                                        SizedBox(height: 4,),
+                                                                        const SizedBox(height: 4,),
                                                                         Text(categories[index1].title.tr(),style: TextStyle(fontSize: 12.sp),),
                                                                       ],
                                                                     ),
@@ -329,13 +329,11 @@ class _MainPageState extends State<MainPage> {
                                 if(ctrl_desc.text.isNotEmpty &&
                                 ctrl_bt.text.isNotEmpty && newtask.category!='category' && newtask.priority!=0)
                                 {
-                                  print(newtask.category);
-                                  print(newtask.priority);
                                   newtask.title=ctrl_bt.text;
                                   newtask.description=ctrl_desc.text;
                                   newtask.isComplated=0;
 
-                                  LocalDatabase.insertToDatabase(newtask);
+                                  await LocalDatabase.insertToDatabase(newtask);
 
                                   Navigator.pop(context);
                                   setState(() {

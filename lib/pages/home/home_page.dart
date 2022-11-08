@@ -27,171 +27,178 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              ExpansionTile(
-                  title: Text("Today".tr()),
-                children: [
-                  FutureBuilder(
-                    future: getList(),
-                    builder: (context, snapshot) {
-                      if(snapshot.hasData){
-                        dynamic data=snapshot.data;
-                        return snapshot.data!.length>0?Container(
-                          child: Container(
-                              height: 600.h,
-                              width: 400.w,
-                              padding: const EdgeInsets.all(28).r,
-                              child: ListView.builder(
-                                physics: const BouncingScrollPhysics(),
-                                itemCount: snapshot.data?.length,
-                                itemBuilder: (context, index) => Dismissible(
-                                    key: UniqueKey(),
-                                    onDismissed: (direction) async {
-                                      snapshot.data![index].isComplated=1;
-                                      await LocalDatabase.updateTaskById(snapshot.data![index]);
-                                      setState(() {
-                                        getList();
-                                      });
-                                      print(snapshot.data![index].isComplated);
-                                    },
-                                    child: snapshot.data![index].isComplated==0?task(context,snapshot.data![index],(){
-                                      setState(() {});
-                                    }):Container()),)
-                          ),
-                        ):
-                        SafeArea(
-                          child: SizedBox(
-                            height: MediaQuery.of(context).size.height,
-                            width: MediaQuery.of(context).size.width,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 54.h,
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  height: 300.h,
-                                  width: 300.w,
-                                  child: Lottie.asset(Consts.lt_onb3),
-                                ),
-                                SizedBox(
-                                  height: 24.h,
-                                ),
-                                Text(
-                                  "What do you want to do today?".tr(),
-                                  style: TextStyle(fontSize: 20.sp),
-                                ),
-                                SizedBox(
-                                  height: 12.h,
-                                ),
-                                Text(
-                                  "Tap + to add your tasks".tr(),
-                                  style: TextStyle(fontSize: 16.sp),
-                                )
-                              ],
+          child: Container(
+            height: 1300.h,
+            child: Column(
+              children: [
+                ExpansionTile(
+                    title: Text("Today".tr()),
+                  children: [
+                    FutureBuilder(
+                      future: LocalDatabase.getTaskIsCompleted(0),
+                      builder: (context, snapshot) {
+                        if(snapshot.hasData){
+                          return snapshot.data!.length>0?Container(
+                            child: Container(
+                                height: 600.h,
+                                width: 400.w,
+                                padding: const EdgeInsets.all(28).r,
+                                child: ListView.builder(
+                                  physics: const BouncingScrollPhysics(),
+                                  itemCount: snapshot.data?.length,
+                                  itemBuilder: (context, index) => Dismissible(
+                                      key: UniqueKey(),
+                                      onDismissed: (direction) async {
+                                        await LocalDatabase.updateTaskById(snapshot.data![index].copyWith(isComplated: 1));
+                                        setState(() {
+                                          getList();
+                                        });
+                                        print(snapshot.data![index].isComplated);
+                                      },
+                                      child: snapshot.data![index].isComplated==0?task(context,snapshot.data![index],(){
+                                        setState(() {});
+                                      }):Container()),)
                             ),
-                          ),
-                        );
-                      }
-                      if(snapshot.hasError){
-                        return Container(
-                          child: Center(
-                            child: Text( snapshot.error.toString()),
-                          ),
-                        );
-                      }
-                      if(snapshot.connectionState==ConnectionState.waiting){
-                        return Container(
-                          child: Center(
-                            child: Text("Waiting"),
-                          ),
-                        );
-                      }
-                      return Container();
-                    },
-                  )
-                ],
-              ),
-              ExpansionTile(
-                  title: Text("Complated".tr()),
-                children: [
-                  FutureBuilder(
-                    future: LocalDatabase.getList(),
-                    builder: (context, snapshot) {
-                      if(snapshot.hasData){
-                        dynamic data=snapshot.data;
-                        return snapshot.data!.length>0?Container(
-                          child: Container(
-                              height: 600.h,
-                              width: 400.w,
-                              padding: const EdgeInsets.all(28).r,
-                              child: ListView.builder(
-                                physics: const BouncingScrollPhysics(),
-                                itemCount: snapshot.data?.length,
-                                itemBuilder: (context, index) => Dismissible(
-                                    key: UniqueKey(),
-                                    onDismissed: (direction) async {
-                                      print(data[index].id);
-                                      await LocalDatabase.deleteTaskById(data[index].id);
-                                      setState(() {});
-                                    },
-                                    child: snapshot.data![index].isComplated==1?task(context,snapshot.data![index],(){
-                                      setState(() {});
-                                    }):Container()),)
-                          ),
-                        ):
-                        SafeArea(
-                          child: SizedBox(
-                            height: MediaQuery.of(context).size.height,
-                            width: MediaQuery.of(context).size.width,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 54.h,
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  height: 300.h,
-                                  width: 300.w,
-                                  child: Lottie.asset(Consts.lt_onb3),
-                                ),
-                                SizedBox(
-                                  height: 24.h,
-                                ),
-                                Text(
-                                  "What do you want to do today?".tr(),
-                                  style: TextStyle(fontSize: 20.sp),
-                                ),
-                                SizedBox(
-                                  height: 12.h,
-                                ),
-                                Text(
-                                  "Tap + to add your tasks".tr(),
-                                  style: TextStyle(fontSize: 16.sp),
-                                )
-                              ],
+                          ):
+                          SafeArea(
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height,
+                              width: MediaQuery.of(context).size.width,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 54.h,
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: 300.h,
+                                    width: 300.w,
+                                    child: Lottie.asset(Consts.lt_onb3),
+                                  ),
+                                  SizedBox(
+                                    height: 24.h,
+                                  ),
+                                  Text(
+                                    "What do you want to do today?".tr(),
+                                    style: TextStyle(fontSize: 20.sp),
+                                  ),
+                                  SizedBox(
+                                    height: 12.h,
+                                  ),
+                                  Text(
+                                    "Tap + to add your tasks".tr(),
+                                    style: TextStyle(fontSize: 16.sp),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                      if(snapshot.hasError){
-                        return Center(
-                          child: Text( snapshot.error.toString()),
-                        );
-                      }
-                      if(snapshot.connectionState==ConnectionState.waiting){
-                        return const Center(
-                          child: Text("Waiting"),
-                        );
-                      }
-                      return Container();
-                    },
-                  )
-                ],
-              )
-            ],
+                          );
+                        }
+                        if(snapshot.hasError){
+                          return Container(
+                            child: Center(
+                              child: Text( snapshot.error.toString()),
+                            ),
+                          );
+                        }
+                        if(snapshot.connectionState==ConnectionState.waiting){
+                          return Container(
+                            child: Center(
+                              child: Text("Waiting"),
+                            ),
+                          );
+                        }
+                        return Container();
+                      },
+                    )
+                  ],
+                ),
+                ExpansionTile(
+                  title: Text("Completed".tr()),
+                  children: [
+                    FutureBuilder(
+                      future: LocalDatabase.getTaskIsCompleted(1),
+                      builder: (context, snapshot) {
+                        if(snapshot.hasData){
+                          return snapshot.data!.length>0?Container(
+                            child: Container(
+                                height: 600.h,
+                                width: 400.w,
+                                padding: const EdgeInsets.all(28).r,
+                                child: ListView.builder(
+                                  physics: const BouncingScrollPhysics(),
+                                  itemCount: snapshot.data?.length,
+                                  itemBuilder: (context, index) => Dismissible(
+                                      key: UniqueKey(),
+                                      onDismissed: (direction) async {
+                                        await LocalDatabase.updateTaskById(snapshot.data![index].copyWith(isComplated: 0));
+                                        setState(() {
+                                          getList();
+                                        });
+                                        print(snapshot.data![index].isComplated);
+                                      },
+                                      child: snapshot.data![index].isComplated==0?task(context,snapshot.data![index],(){
+                                        setState(() {});
+                                      }):Container()),)
+                            ),
+                          ):
+                          SafeArea(
+                            child: SizedBox(
+                              height: MediaQuery.of(context).size.height,
+                              width: MediaQuery.of(context).size.width,
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 54.h,
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: 300.h,
+                                    width: 300.w,
+                                    child: Lottie.asset(Consts.lt_onb3),
+                                  ),
+                                  SizedBox(
+                                    height: 24.h,
+                                  ),
+                                  Text(
+                                    "What do you want to do today?".tr(),
+                                    style: TextStyle(fontSize: 20.sp),
+                                  ),
+                                  SizedBox(
+                                    height: 12.h,
+                                  ),
+                                  Text(
+                                    "Tap + to add your tasks".tr(),
+                                    style: TextStyle(fontSize: 16.sp),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+                        if(snapshot.hasError){
+                          return Container(
+                            child: Center(
+                              child: Text( snapshot.error.toString()),
+                            ),
+                          );
+                        }
+                        if(snapshot.connectionState==ConnectionState.waiting){
+                          return Container(
+                            child: Center(
+                              child: Text("Waiting"),
+                            ),
+                          );
+                        }
+                        return Container();
+                      },
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ));
   }
 }
+

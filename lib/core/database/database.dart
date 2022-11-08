@@ -96,4 +96,36 @@ class LocalDatabase{
       whereArgs: [id],
     );
   }
+
+  static Future<List<Task>> getTaskIsCompleted(int isCompleted,
+      {String title = ''}) async {
+    var database = await getInstance.getDb();
+
+    if (title.isNotEmpty) {
+      var listOfTodos = await database.query(
+        tablename,
+        where: 'title LIKE ? AND isCompleted = ?',
+        whereArgs: ['%$title%', '$isCompleted'],
+      );
+      var list = listOfTodos.map((e) => Task.fromJson(e)).toList();
+      return list;
+    } else {
+      var listOfTodos = await database.query(tablename,
+          columns: [
+            'id',
+            'title',
+            'description',
+            'date' ,
+            'priority' ,
+            'isCompleted' ,
+            'time' ,
+            'category'
+          ],
+          where: 'isCompleted = ?',
+          whereArgs: ['$isCompleted']);
+
+      var list = listOfTodos.map((e) => Task.fromJson(e)).toList();
+      return list;
+    }
+  }
 }

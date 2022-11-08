@@ -52,11 +52,11 @@ Widget onboarding_wdj(String lottie,int ind,String title,String subtitle){
           ),
         ),
         SizedBox(height: 40.h,),
-        Text(title,style: TextStyle(
+        Text(title.tr(),style: TextStyle(
             color: Colors.white,fontSize: 32.sp,fontWeight: FontWeight.w600
         ),),
         SizedBox(height: 30.h,),
-        Text(subtitle,style: TextStyle(
+        Text(subtitle.tr(),style: TextStyle(
           color: Colors.white.withOpacity(0.87),fontSize: 16.sp,
         ),textAlign: TextAlign.center,)
       ],
