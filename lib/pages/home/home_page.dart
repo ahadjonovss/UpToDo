@@ -135,7 +135,6 @@ class _HomePageState extends State<HomePage> {
                                         setState(() {
                                           getList();
                                         });
-                                        print(snapshot.data![index].isComplated);
                                       },
                                       child: snapshot.data![index].isComplated==0?task(context,snapshot.data![index],(){
                                         setState(() {});

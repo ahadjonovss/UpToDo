@@ -1,10 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:up_todo/core/database/dark_mode.dart';
 import 'package:up_todo/local_data/shared_preference.dart';
 import 'package:up_todo/routes/routes.dart';
 import 'package:up_todo/utils/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../local_data/theme_provider.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -14,15 +19,18 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  bool _switchValue=true;
   int lang=StorageRepository.getInt('lang');
+  bool isLight = StorageRepository.getBool("isLight");
   @override
   Widget build(BuildContext context) {
+    var themeChanger = Provider.of<ThemeProvider>(context);
+
     TextEditingController ctrl_name=TextEditingController();
     TextEditingController ctrl_newpsw=TextEditingController();
     TextEditingController ctrl_oldpsw=TextEditingController();
     TextEditingController ctrl_psw=TextEditingController();
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(24).r,
@@ -88,17 +96,17 @@ class _AccountPageState extends State<AccountPage> {
                       children: [
                         RadioListTile(
                             selected: lang==0,
-                            title: Text("English"),
+                            title: const Text("English"),
                             value: 0,
                             groupValue:lang,
                             onChanged: (val) async {
                               lang=val!;
-                              context.setLocale(Locale('en',"EN"));
+                              context.setLocale(const Locale('en',"EN"));
                               await StorageRepository.saveInt('lang', 0);
                               setState(() {});
                             }),
                         RadioListTile(
-                            title: Text("Uzbek"),
+                            title: const Text("Uzbek"),
                             selected: lang==1,
                             value: 1,
                             groupValue:lang,
@@ -153,7 +161,9 @@ class _AccountPageState extends State<AccountPage> {
                             TextButton(onPressed: () async {
                               await StorageRepository.saveString('name', ctrl_name.text);
                               ctrl_name.text='';
-                              Navigator.pushNamed(context, RouteName.account);
+                              setState(() {
+
+                              });
                             }, child: Text("Save".tr()))
                           ],
                         )
@@ -239,9 +249,21 @@ class _AccountPageState extends State<AccountPage> {
                         children: [
                           Icon(Icons.image,color: Colors.white,),
                           SizedBox(width: 20.w,),
-                          Text("Change account image".tr())
+                          Text("Change theme mode".tr())
                         ],
                       ),
+                      children: [
+                        CupertinoSwitch(
+                          value: _switchValue,
+                          onChanged: (value) {
+                            setState(() {
+                              isLight = !isLight;
+                              _switchValue = !_switchValue;
+                            });
+                            themeChanger.setIsLight(isLight);
+                          },
+                        ),
+                      ],
                     ),
                     Text("UpTodo".tr(),textAlign: TextAlign.start,),
                     ExpansionTile(
