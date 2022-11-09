@@ -125,6 +125,8 @@ class LocalDatabase{
           whereArgs: ['$isCompleted']);
 
       var list = listOfTodos.map((e) => Task.fromJson(e)).toList();
+
+      await Future.delayed(Duration(minutes: 10));
       return list;
     }
   }

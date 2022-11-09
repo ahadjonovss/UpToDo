@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:up_todo/core/service/get_list.dart';
+import 'package:up_todo/core/widgets/shimmers.dart';
 import 'package:up_todo/core/widgets/task_widget.dart';
 import 'package:up_todo/utils/colors.dart';
 import 'package:up_todo/utils/consts.dart';
@@ -102,11 +103,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         }
                         if(snapshot.connectionState==ConnectionState.waiting){
-                          return Container(
-                            child: Center(
-                              child: Text("Waiting"),
-                            ),
-                          );
+                          return TaskShimmer();
                         }
                         return Container();
                       },
