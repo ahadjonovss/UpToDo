@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:up_todo/core/widgets/auth_sm.dart';
@@ -40,11 +41,11 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Login",style: TextStyle(fontSize: 32.sp,fontWeight: FontWeight.w600),),
+                Text("Login".tr(),style: TextStyle(fontSize: 32.sp,fontWeight: FontWeight.w600),),
                 SizedBox(height: 52.h,),
-                textField("Username", "Enter Your Username", usrnm_ctrl, false),
+                textField("Username".tr(), "Enter Your Username".tr(), usrnm_ctrl, false),
                 SizedBox(height: 24.h,),
-                textField("Password", "• • • • • • • • • • • •", psw_ctrl, true),
+                textField("Password".tr(), "• • • • • • • • • • • •", psw_ctrl, true),
                 SizedBox(height: 70.h,),
                 InkWell(
                   onTap: () async {
@@ -57,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                     if(usrnm_ctrl.text.isEmpty || psw_ctrl.text.isEmpty){
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text( "${usrnm_ctrl.text.isEmpty==false?"Password":"Username"} not entered!",
+                            content: Text( "${usrnm_ctrl.text.isEmpty==false?"Password".tr():"Username".tr()} not entered!",
                               style: TextStyle(color: Colors.red),
                             ),
                             backgroundColor: Colors.black54,
@@ -73,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: const Color(0xFF8687E7),
                       borderRadius: BorderRadius.circular(4).r,
                     ),
-                    child: Center(child: Text(textAlign: TextAlign.center,"Login",style: TextStyle(fontSize: 20.sp),)),
+                    child: Center(child: Text(textAlign: TextAlign.center,"Login".tr(),style: TextStyle(fontSize: 20.sp),)),
                   ),
                 ), //Login
                 const SizedBox(height: 32,),
@@ -88,10 +89,10 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       SizedBox(width: 4.w,),
-                      const Text("or",style: TextStyle(color: Colors.grey),),
+                       Text("or".tr(),style: TextStyle(color: Colors.grey),),
                       SizedBox(width: 4.w,),
                       const SizedBox(
-                        width: 160,
+                        width: 150,
                         child: Divider(
                           color: Colors.grey,
                         ),
@@ -107,12 +108,12 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account?",style: TextStyle(color: Colors.grey,fontSize: 12.sp),),
+                    Text("Don't have an account?".tr(),style: TextStyle(color: Colors.grey,fontSize: 12.sp),),
                     InkWell(
                       onTap: (){
                         Navigator.pushNamed(context, RouteName.register);
                       },
-                        child: Text("Register",style: TextStyle(fontSize: 12.sp),)),
+                        child: Text("Register".tr(),style: TextStyle(fontSize: 12.sp),)),
 
                   ],
                 )

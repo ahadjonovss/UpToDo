@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -40,13 +41,13 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Register",style: TextStyle(fontSize: 32.sp,fontWeight: FontWeight.w600),),
+                Text("Register".tr(),style: TextStyle(fontSize: 32.sp,fontWeight: FontWeight.w600),),
                 SizedBox(height: 40.h,),
-                textField("Username", "Enter Your Username", usrnm_ctrl, false),
+                textField("Username".tr(), "Enter Your Username".tr(), usrnm_ctrl, false),
                 SizedBox(height: 24.h,),
-                textField("Password", "• • • • • • • • • • • •", psw_ctrl, true),
+                textField("Password".tr(), "• • • • • • • • • • • •", psw_ctrl, true),
                 SizedBox(height: 24.h,),
-                textField("Confirm Password", "• • • • • • • • • • • •", c_psw_ctrl, true),
+                textField("Confirm Password".tr(), "• • • • • • • • • • • •", c_psw_ctrl, true),
                 SizedBox(height: 40.h,),
                 InkWell(
                   onTap: () async {
@@ -71,7 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     if(usrnm_ctrl.text.isEmpty || psw_ctrl.text.isEmpty){
                       ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text( "${usrnm_ctrl.text.isEmpty==false?"Password":"Username"} not entered!",
+                        content: Text( "${usrnm_ctrl.text.isEmpty==false?"Password".tr():"Username".tr()} "+"not entered!",
                           style: TextStyle(color: Colors.red),
                         ),
                         backgroundColor: Colors.black54,
@@ -86,7 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: const Color(0xFF8687E7),
                       borderRadius: BorderRadius.circular(4).r,
                     ),
-                    child: Center(child: Text(textAlign: TextAlign.center,"Register",style: TextStyle(fontSize: 20.sp),)),
+                    child: Center(child: Text(textAlign: TextAlign.center,"Register".tr(),style: TextStyle(fontSize: 20.sp),)),
                   ),
                 ), //Login
                 const SizedBox(height: 32,),
@@ -101,10 +102,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       SizedBox(width: 4.w,),
-                      const Text("or",style: TextStyle(color: Colors.grey),),
+                       Text("or".tr(),style: TextStyle(color: Colors.grey),),
                       SizedBox(width: 4.w,),
                       const SizedBox(
-                        width: 160,
+                        width: 150,
                         child: Divider(
                           color: Colors.grey,
                         ),
@@ -120,12 +121,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account?",style: TextStyle(color: Colors.grey,fontSize: 12.sp),),
+                    Text("Already have an account?".tr(),style: TextStyle(color: Colors.grey,fontSize: 12.sp),),
                     InkWell(
                         onTap: (){
                           Navigator.pushNamed(context, RouteName.login);
                         },
-                        child: Text("Login",style: TextStyle(fontSize: 12.sp),)),
+                        child: Text("Login".tr(),style: TextStyle(fontSize: 12.sp),)),
 
                   ],
                 )

@@ -8,12 +8,12 @@ import '../../utils/consts.dart';
 
 Widget onboarding_wdj(String lottie,int ind,String title,String subtitle){
   return Container(
-    height: 600.h,
+    height: ind==1?500.h:600.h,
     child: Column(
       children: [
         Container(
-          height: 300.h,
-          margin: EdgeInsets.only(top: 90).r,
+          height: ind==1?200.h:300.h,
+          margin: const EdgeInsets.only(top: 90).r,
           child: Lottie.asset(lottie),
         ),
         Container(

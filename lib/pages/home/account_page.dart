@@ -61,7 +61,7 @@ class _AccountPageState extends State<AccountPage> {
                         color: MyColors.C_363636,
                       ),
                       child: Center(
-                        child: Text("10 task done".tr(),style: TextStyle(fontSize: 16.sp),),
+                        child: Text("10"+"task left".tr(),style: TextStyle(fontSize: 16.sp),),
                       ),
 
                     ),
@@ -73,7 +73,7 @@ class _AccountPageState extends State<AccountPage> {
                         color: MyColors.C_363636,
                       ),
                       child: Center(
-                        child: Text("10 task done".tr(),style: TextStyle(fontSize: 16.sp),),
+                        child: Text("10"+"task done".tr(),style: TextStyle(fontSize: 16.sp),),
                       ),
 
                     ),
@@ -304,8 +304,8 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                     SizedBox(height: 12.h,),
                     InkWell(
-                      onTap: (){
-                        StorageRepository.saveBool('login', false);
+                      onTap: () async {
+                        await StorageRepository.saveBool('login', false);
                         Navigator.pushNamedAndRemoveUntil(context, RouteName.splash, (route) => false);
                       },
                       child: Container(

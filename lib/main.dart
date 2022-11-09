@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
               brightness: Brightness.dark,
             ),
             onGenerateRoute: AppRoutes.generateRoute,
-            initialRoute: RouteName.main,
+            initialRoute: RouteName.splash,
             debugShowCheckedModeBanner: false,
             title: 'UpToDo',
           );

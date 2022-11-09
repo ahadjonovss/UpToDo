@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,7 +25,7 @@ Widget auth_with(String img,String what){
             ),
           ),
           SizedBox(width: 12.w,),
-          Text("Login with $what",style: TextStyle(fontSize: 16.sp),)
+          Text("Login with".tr()+"$what",style: TextStyle(fontSize: 16.sp),)
 
 
         ],));

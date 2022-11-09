@@ -22,14 +22,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
     keepPage: true,
   );
   int currentPage=0;
-  int lang=StorageRepository.getInt('lang')??1;
+  int lang=StorageRepository.getInt('lang')??0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Container(
             padding: const  EdgeInsets.only(left: 16,top: 16,right: 16).r,
             child: Column(
@@ -43,10 +43,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       style: TextStyle(fontSize:20.sp,
                           color: Colors.white.withOpacity(0.44)),)),
                 currentPage==0?ExpansionTile(
-                  title: Text("Select Language"),
+                  title: Text("Select Language".tr()),
                   children: [
                     RadioListTile(
                       title: Text("English"),
+                        selected: lang==0,
                         value: 0,
                         groupValue:lang,
                         onChanged: (val) async {
@@ -56,6 +57,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         setState(() {});
                         }),
                     RadioListTile(
+                      selected: lang==1,
                       title: Text("Uzbek"),
                         value: 1,
                         groupValue:lang,
@@ -68,7 +70,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ],
                 ):Container(),
                 SizedBox(
-                    height: 600.h,
+                    height: currentPage==0?500.h:580.h,
                     width: double.infinity,
                     child: PageView.builder(
                       itemCount: 3,

@@ -52,7 +52,29 @@
   "Create daily routine": "Kun tartibini o'rnat",
   "In Uptodo  you can create your\npersonalized routine to stay productive": "UpToDo ilovasida shaxsiy kun tartibingizni yarating va kundalik samaradorlikni yanada oshiring",
   "Orgonaize your tasks": "Vazifalarni tashkillashtir",
-  "You can organize your daily tasks by\nadding your tasks into separate categories": "Kundalik vazifalaringnizni toifalarga ajratgan holda tartiblashingiz mumkin"
+  "You can organize your daily tasks by\nadding your tasks into separate categories": "Kundalik vazifalaringnizni toifalarga ajratgan holda tartiblashingiz mumkin",
+  "Update Task": "Vazifani yangilash",
+
+  "Welcome to UpToDo": "UpToDo ga xush kelibsiz!",
+  "Please login to your account or create\nnew account to continue": "Ilovaga kirish uchun shaxsiy hisobingizga kiring\nyoki yangi hisob yarating",
+  "Login": "Kirish",
+  "Create account": "Hisob yaratish",
+  "Select Language": "Tilni tanlash",
+  "Username": "Taxallus",
+  "Enter Your Username": "Taxallusni kiriting",
+  "Password": "Maxfiy so'z",
+  "or": "yoki",
+  "Login with": "bilan kirish",
+  "Don't have an account?": "Akkauntingiz yo'qmi?",
+  "Register": "Ro'yxatdan o'ting",
+  "Confirm Password": "Parolni tasdiqlash",
+  "The entered passwords are not similar": "Kiritilgan parollar bir xil emas",
+  "not entered!": "kiritilmagan!",
+  "Already have an account?": "Shaxsiy hisobingiz bormi?"
+
+
+
+
 
 
 }

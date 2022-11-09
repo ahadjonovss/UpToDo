@@ -130,7 +130,7 @@ Widget task(BuildContext context ,Task task,VoidCallback setstate){
                                           height: 320.h,
                                           child: Column(
                                             children: [
-                                              const Text("Task Priority",textAlign: TextAlign.center,),
+                                               Text("Task Priority".tr(),textAlign: TextAlign.center,),
                                               SizedBox(height: 8.h,),
                                               const Divider(color: Colors.white,),
                                               SizedBox(height: 12.h,),
@@ -184,11 +184,12 @@ Widget task(BuildContext context ,Task task,VoidCallback setstate){
                                                     priority=-1;
                                                     Navigator.pop(context);
                                                   },
-                                                      child:Text("Cancel",style: TextStyle(color: MyColors.C_8687E7,fontSize: 18.sp),) ),
+                                                      child:Text("Cancel".tr(),style: TextStyle(color: MyColors.C_8687E7,fontSize: 18.sp),) ),
                                                   InkWell(
                                                     onTap: (){
                                                       task.priority=priority+1;
                                                       Navigator.pop(context);
+                                                      setstate;
                                                     },
                                                     child: Container(
                                                       height: 48.h,
@@ -197,7 +198,7 @@ Widget task(BuildContext context ,Task task,VoidCallback setstate){
                                                           color: MyColors.C_8687E7,
                                                           borderRadius: BorderRadius.circular(4).r
                                                       ),
-                                                      child: Center(child: Text("Save",style: TextStyle(fontSize: 18.sp),)),
+                                                      child: Center(child: Text("Save".tr(),style: TextStyle(fontSize: 18.sp),)),
                                                     ),
                                                   )
                                                 ],

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:up_todo/routes/routes.dart';
@@ -33,11 +34,11 @@ class _StartPageState extends State<StartPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 60.h,),
-              Text("Welcome to UpToDo",textAlign:TextAlign.center,style: TextStyle(
+              Text("Welcome to UpToDo".tr(),textAlign:TextAlign.center,style: TextStyle(
                   color: Colors.white,fontSize: 32.sp,fontWeight: FontWeight.w600
               ),),
               SizedBox(height: 40.h,),
-              Text("Please login to your account or create\nnew account to continue",style: TextStyle(
+              Text("Please login to your account or create\nnew account to continue".tr(),style: TextStyle(
                 color: Colors.white.withOpacity(0.87),fontSize: 16.sp,
               ),textAlign: TextAlign.center,),
               SizedBox(height: 350.h,),
@@ -52,7 +53,7 @@ class _StartPageState extends State<StartPage> {
                     color: MyColors.purple,
                     borderRadius: BorderRadius.circular(4).r,
                   ),
-                  child: Center(child: Text(textAlign: TextAlign.center,"Login",style: TextStyle(fontSize: 20.sp),)),
+                  child: Center(child: Text(textAlign: TextAlign.center,"Login".tr(),style: TextStyle(fontSize: 20.sp),)),
                 ),
               ),
               SizedBox(height: 28.h,),
@@ -67,7 +68,7 @@ class _StartPageState extends State<StartPage> {
                     border: Border.all(color: MyColors.purple),
                     borderRadius: BorderRadius.circular(4).r,
                   ),
-                  child: Center(child: Text(textAlign: TextAlign.center,"Create account",style: TextStyle(fontSize: 20.sp),)),
+                  child: Center(child: Text(textAlign: TextAlign.center,"Create account".tr(),style: TextStyle(fontSize: 20.sp),)),
                 ),
               )
 
