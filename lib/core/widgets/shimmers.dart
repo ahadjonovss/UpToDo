@@ -19,7 +19,7 @@ class _TaskShimmerState extends State<TaskShimmer> {
       child:
       ListView.builder(
         shrinkWrap: true,
-        itemCount: 10,
+        itemCount: 3,
           itemBuilder:(context, index) {
             return Container(
               margin: const EdgeInsets.only(top: 16).r,

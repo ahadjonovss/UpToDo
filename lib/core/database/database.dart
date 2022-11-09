@@ -126,7 +126,7 @@ class LocalDatabase{
 
       var list = listOfTodos.map((e) => Task.fromJson(e)).toList();
 
-      await Future.delayed(Duration(minutes: 10));
+      await Future.delayed(Duration(seconds: 4));
       return list;
     }
   }

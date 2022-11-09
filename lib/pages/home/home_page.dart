@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 ExpansionTile(
+                  initiallyExpanded: true,
                     title: Text("Today".tr()),
                   children: [
                     FutureBuilder(
@@ -41,10 +42,9 @@ class _HomePageState extends State<HomePage> {
                         if(snapshot.hasData){
                           return snapshot.data!.length>0?Container(
                             child: Container(
-                                height: 600.h,
-                                width: 400.w,
-                                padding: const EdgeInsets.all(28).r,
+                                padding: const EdgeInsets.symmetric(horizontal: 28,vertical: 8).r,
                                 child: ListView.builder(
+                                  shrinkWrap: true,
                                   physics: const BouncingScrollPhysics(),
                                   itemCount: snapshot.data?.length,
                                   itemBuilder: (context, index) => Dismissible(
@@ -111,6 +111,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 ExpansionTile(
+                  initiallyExpanded: true,
                   title: Text("Completed".tr()),
                   children: [
                     FutureBuilder(
@@ -119,10 +120,9 @@ class _HomePageState extends State<HomePage> {
                         if(snapshot.hasData){
                           return snapshot.data!.length>0?Container(
                             child: Container(
-                                height: 600.h,
-                                width: 400.w,
-                                padding: const EdgeInsets.all(28).r,
+                                padding: const EdgeInsets.symmetric(horizontal: 28,vertical: 8).r,
                                 child: ListView.builder(
+                                  shrinkWrap: true,
                                   physics: const BouncingScrollPhysics(),
                                   itemCount: snapshot.data?.length,
                                   itemBuilder: (context, index) => Dismissible(
@@ -180,11 +180,7 @@ class _HomePageState extends State<HomePage> {
                           );
                         }
                         if(snapshot.connectionState==ConnectionState.waiting){
-                          return Container(
-                            child: Center(
-                              child: Text("Waiting"),
-                            ),
-                          );
+                          return TaskShimmer();
                         }
                         return Container();
                       },
